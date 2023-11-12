@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        background-color: black;
+      }
+
+      button {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        margin: 7px;
+        font-size: 20px;
+        color: white;
+        background-color: gray;
+        border: none;
+        cursor: pointer;
+      }
+
+      .ops {
+        background-color: orange;
+        font-weight: 700;
+      }
+
+      .r {
+        color: rgb(128, 121, 121);
+        font-size: 40px;
+        margin-bottom: 5px;
+        margin-left: 30px;
+        width: 230px;
+        word-wrap: break-word;
+      }
+
+      .upperPart {
+        width: 270px;
+        border: solid;
+        border-color: purple;
+        background-color: pink;
+      }
+
+      .bottomPart {
+        width: 270px;
+        border: solid;
+        border-color: purple;
+        background-image: url(panther.png);
+      }
+    </style>
+
+    <div class="upperPart">
+      <p class="r">pinkulator...</p>
+    </div>
+    <div class="bottomPart">
+      <div>
+    <button onclick="saveNumber('1')">1</button>
+    <button onclick="saveNumber('2')">2</button>
+    <button onclick="saveNumber('3')">3</button>
+    <button onclick="saveNumber('+')" class="ops">+</button>
+  </div>
+  <div>
+    <button onclick="saveNumber('4')">4</button>
+    <button onclick="saveNumber('5')">5</button>
+    <button onclick="saveNumber('6')">6</button>
+    <button onclick="saveNumber('-')" class="ops">-</button>
+  </div>
+  <div>
+    <button onclick="saveNumber('7')">7</button>
+    <button onclick="saveNumber('8')">8</button>
+    <button onclick="saveNumber('9')">9</button>
+    <button onclick="saveNumber('*')" class="ops">*</button>
+  </div>
+  <div>
+    <button onclick="saveNumber('0')">0</button>
+    <button>.</button>
+    <button
+      onclick="calculation = eval(calculation); 
+    displayRes();
+    sessionStorage.setItem('calculation', calculation);"
+    >
+      =
+    </button>
+    <button onclick="saveNumber('/')" class="ops">/</button>
+  </div>
+  <button
+    onclick="calculation = '';
+    sessionStorage.removeItem('calculation'); 
+    displayRes(); document.querySelector('.r').innerHTML = 'pinkulator...'"
+    style="font-size: 15px"
+  >
+    Clear
+  </button>
+    <div>
+     
+
+    <script>
+      let calculation = sessionStorage.getItem("calculation") || "";
+
+      function saveNumber(value) {
+        (calculation += value),
+          sessionStorage.setItem("calculation", calculation);
+        displayRes();
+      }
+
+      function displayRes() {
+        document.querySelector(".r").innerHTML = calculation;
+      }
+
+      document.body.addEventListener("keydown", function (e) {
+        if (e.code === "Enter") {
+          e.preventDefault();
+          calculation = eval(calculation);
+          displayRes();
+          sessionStorage.setItem("calculation", calculation);
+        } else if (e.code === "Backspace") {
+          e.preventDefault();
+          calculation = "";
+          sessionStorage.removeItem("calculation");
+          displayRes();
+          document.querySelector('.r').innerHTML = 'pinkulator...'
+        } else if (event.shiftKey === true && e.keyCode === 55) {
+          saveNumber("/");
+        } else if (e.keyCode === 221) {
+          saveNumber("*");
+        } else if (e.code === "Slash") {
+          saveNumber("-");
+        } else if (e.keyCode === 187) {
+          saveNumber("+");
+        } else if (e.keyCode === 49) {
+          saveNumber("1");
+        } else if (e.keyCode === 50) {
+          saveNumber("2");
+        } else if (e.keyCode === 51) {
+          saveNumber("3");
+        } else if (e.keyCode === 52) {
+          saveNumber("4");
+        } else if (e.keyCode === 53) {
+          saveNumber("5");
+        } else if (e.keyCode === 54) {
+          saveNumber("6");
+        } else if (event.shiftKey === false && e.keyCode === 55) {
+          saveNumber("7");
+        } else if (e.keyCode === 56) {
+          saveNumber("8");
+        } else if (e.keyCode === 57) {
+          saveNumber("9");
+        } else if (e.keyCode === 48) {
+          saveNumber("0");
+        }
+      });
+    </script>
+  </body>
+</html>
